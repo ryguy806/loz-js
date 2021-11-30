@@ -17,9 +17,6 @@ let fps = 60;
 let worldTiles = new Image();
 worldTiles.src = "assets/tiles-overworld.png"; 
 
-height = 15
-width = 16
-
 // Tiles fall in an array of:
 // COLS = 0 - 17
 // ROWS = 0 - 7
@@ -42,15 +39,34 @@ let map7_7 = [
    [ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
    [ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
    [ 61, 61, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 61, 61],
-   [ 61, 61, 61, 61, 61, 61, 61,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+   [ 61, 61, 61, 61, 61, 61, 61,  2,  2, 61, 61, 61, 61, 61, 61, 61]
 ];
 
-function draw () {
+const drawMap = (level) => {
+   for (var i = 0; i < level.length; i++) {
+      for(var j = 0; i < level[i].length; j++) {
+         ctx.drawImage(
+            worldTiles, // Sprite sheet
+            ((level[i][j] % 18) * 17) + 1, // Column
+            (Math.floor(level[i][j] / 18) * 17) + 1, // Row
+            16, // sprite width
+            16, // sprite height
+            j * 16, // draw this x
+            i * 16, // draw this y
+            16, // draw x
+            16  // draw y
+         )
+      }
+   }
+}
+
+const draw = () => {
    setTimeout(function() {
    requestAnimationFrame(draw);
    ctx.fillStyle = "rgb(20,20,20)";
    ctx.fillRect(0,0,256,240);
-   ///all code goes here
+   //all code goes here
+   drawMap(map7_7);
    },1000/fps);
 }
 draw();
