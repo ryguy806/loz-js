@@ -19,7 +19,6 @@ let link = new Image();
 link.src = "link.png"
 worldTiles.src = "tiles-overworld.png";
 
-//Key press controllers
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
@@ -27,13 +26,10 @@ let downPressed = false;
 
 let lastButtonPressed = 'up';
 
-//Animation Controllers
 let animationCounter = 0;
 let currentAnimation = 0;
 
 let animationSpeed = 10;
-
-//Link Starter Position
 let linkX = 116;
 let linkY = 135;
 
@@ -54,7 +50,7 @@ let map7_7 = [
 [ 61, 61, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 61, 61],
 [ 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61]];
 
-function keyDownHandler(event){
+function keyDownHandler(e){
    if(e.keyCode == 37){
       leftPressed = true
       lastButtonPressed = 'left'
@@ -73,7 +69,7 @@ function keyDownHandler(event){
    }
 }
 
-function keyUpHandler(event){
+function keyUpHandler(e){
    if(e.keyCode == 37){
       leftPressed = false
    }
@@ -182,6 +178,7 @@ function draw () {
    ctx.fillRect(0,0,256,240);
    ///all code goes here
    drawMap(map7_7);
+   drawLink();
    },1000/fps);
 }
 draw();
