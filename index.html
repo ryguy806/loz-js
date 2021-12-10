@@ -105,6 +105,62 @@ function drawLink(){
          if(currentAnimation > 1) currentAnimation = 0
       }
    }
+   else if(rightPressed){
+      linkX += speed
+      if(currentAnimation == 0){
+         ctx.drawImage(link, 91, 0, 16, 16, linkX, linkY, 16, 16)
+      }
+      else if(currentAnimation == 1){
+         ctx.drawImage(link, 91, 30, 16, 16, linkX, linkY, 16, 16)
+      }
+      if(animationCounter >= 6){
+         currentAnimation++
+         animationCounter = 0
+         if(currentAnimation > 1) currentAnimation = 0
+      }
+   }
+   else if(downPressed){
+      linkY += speed
+      if(currentAnimation == 0){
+         ctx.drawImage(link, 0, 0, 16, 16, linkX, linkY, 16, 16)
+      }
+      else if(currentAnimation == 1){
+         ctx.drawImage(link, 0, 30, 16, 16, linkX, linkY, 16, 16)
+      }
+      if(animationCounter >= 6){
+         currentAnimation++
+         animationCounter = 0
+         if(currentAnimation > 1) currentAnimation = 0
+      }
+   }
+   else if(upPressed){
+      linkY -= speed
+      if(currentAnimation == 0){
+         ctx.drawImage(link, 62, 0, 16, 16, linkX, linkY, 16, 16)
+      }
+      else if(currentAnimation == 1){
+         ctx.drawImage(link, 62, 30, 16, 16, linkX, linkY, 16, 16)
+      }
+      if(animationCounter >= 6){
+         currentAnimation++
+         animationCounter = 0
+         if(currentAnimation > 1) currentAnimation = 0
+      }
+   }
+   else {
+       if(lastButtonPressed == "down"){
+         ctx.drawImage(link, 0, 0, 16, 16, linkX, linkY, 16, 16)
+       }
+       else if(lastButtonPressed == "up"){
+         ctx.drawImage(link, 62, 0, 16, 16, linkX, linkY, 16, 16)
+       }
+       else if(lastButtonPressed == "left"){
+         ctx.drawImage(link, 30, 0, 16, 16, linkX, linkY, 16, 16)
+       }
+       else if(lastButtonPressed == "right"){
+         ctx.drawImage(link, 91, 0, 16, 16, linkX, linkY, 16, 16)
+       }
+   }
 }
 
 function drawMap(level){
