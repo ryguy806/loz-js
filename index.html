@@ -20,12 +20,22 @@ link.src = "link.png"
 worldTiles.src = "tiles-overworld.png";
 
 //Key press controllers
-let rightPressed = false
-let leftPressed = false
-let upPressed = false
-let downPressed = false
+let rightPressed = false;
+let leftPressed = false;
+let upPressed = false;
+let downPressed = false;
 
-let lastButtonPressed = 'up'
+let lastButtonPressed = 'up';
+
+//Animation Controllers
+let animationCounter = 0;
+let currentAnimation = 0;
+
+let animationSpeed = 10;
+
+//Link Starter Position
+let linkX = 116;
+let linkY = 135;
 
 let map7_7 = [
 [ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
@@ -78,8 +88,26 @@ function keyUpHandler(event){
    }
 }
 
-function drawMap(level)
-{
+function drawLink(){
+   let speed = 2;
+   animationCounter++;
+   if(leftPressed){
+      linkX -= speed
+      if(currentAnimation == 0){
+         ctx.drawImage(link, 30, 0, 16, 16, linkX, linkY, 16, 16)
+      }
+      else if(currentAnimation == 1){
+         ctx.drawImage(link, 30, 30, 16, 16, linkX, linkY, 16, 16)
+      }
+      if(animationCounter >= 6){
+         currentAnimation++
+         animationCounter = 0
+         if(currentAnimation > 1) currentAnimation = 0
+      }
+   }
+}
+
+function drawMap(level){
 	for(let i = 0; i < level.length; i++)
 	{
 		for(let j = 0; j < level[i].length; j++)
