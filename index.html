@@ -61,6 +61,21 @@ function keyDownHandler(event){
    }
 }
 
+function keyUpHandler(event){
+   if(e.keyCode == 37){
+      leftPressed = false
+   }
+   else if(e.keyCode == 39){
+      rightPressed = false
+   }
+   else if(e.keyCode == 38){
+      upPressed = false
+   }
+   else if(e.keyCode == 40){
+      downPressed = false
+   }
+}
+
 function drawMap(level)
 {
 	for(let i = 0; i < level.length; i++)
