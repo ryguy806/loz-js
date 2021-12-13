@@ -37,6 +37,62 @@ let animationSpeed = 10;
 let linkX = 116;
 let linkY = 135;
 
+let gameObjects = [];
+let maps = [];
+let gameMap = null;
+
+function GameObject(){
+   this.x = 0
+   this.y = 0
+   this.width = 0
+   this.height = 0
+
+   this.newMap = 0
+   this.newLinkX = 0
+   this.newLinkY = 0
+
+   this.isPortal = false
+}
+
+function MapBundle(map, object){
+   this.map = map
+   this.gameObject = object
+}
+
+let map7_7 = [
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 61, 61, 61, 61, 61, 61, 61,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 61, 61, 61, 28, 61, 62,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 61, 61, 62,  2,  2,  2,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 61, 62,  2,  2,  2,  2,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 62,  2,  2,  2,  2,  2,  2,  2, 60, 61, 61, 61, 61, 61, 61],
+[  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2],
+[ 43, 44,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 43, 43],
+[ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
+[ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
+[ 61, 61, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 61, 61],
+[ 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61]];
+let objects7_7 = []
+
+let gameObject = new GameObject()
+gameObject.x = 72
+gameObject.y = 72
+gameObject.width = 8
+gameObject.height = 16
+gameObject.newMap = 1;
+gameObject.newLinkX = 120;
+gameObject.newLinkY = 220;
+gameObject.isPortal = true
+
+objects7_7.push(gameObject)
+
+let bundle = new MapBundle(map7_7, objects7_7)
+
+maps.push(bundle)
+
 let mapWoodSword = [
 [ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
 [ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
@@ -55,22 +111,36 @@ let mapWoodSword = [
 [ 55, 55, 55, 55, 55, 55, 55, 28, 28, 55, 55, 55, 55, 55, 55, 55]];
 let gameObjectsWoodSword = [];
 
-let map7_7 = [
-[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
-[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
-[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
-[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
-[ 61, 61, 61, 61, 61, 61, 61,  2,  2, 61, 61, 61, 61, 61, 61, 61],
-[ 61, 61, 61, 61, 28, 61, 62,  2,  2, 61, 61, 61, 61, 61, 61, 61],
-[ 61, 61, 61, 62,  2,  2,  2,  2,  2, 61, 61, 61, 61, 61, 61, 61],
-[ 61, 61, 62,  2,  2,  2,  2,  2,  2, 61, 61, 61, 61, 61, 61, 61],
-[ 61, 62,  2,  2,  2,  2,  2,  2,  2, 60, 61, 61, 61, 61, 61, 61],
-[  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2],
-[ 43, 44,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 43, 43],
-[ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
-[ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
-[ 61, 61, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 61, 61],
-[ 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61]];
+gameObject = new GameObject()
+gameObject.x = 112
+gameObject.y = 240
+gameObject.width = 16
+gameObject.height = 16
+gameObject.newMap = 0;
+gameObject.newLinkX = 68;
+gameObject.newLinkY = 96;
+gameObject.isPortal = true
+
+gameObjectsWoodSword.push(gameObject)
+
+gameObject = new GameObject()
+gameObject.x = 128
+gameObject.y = 240
+gameObject.width = 16
+gameObject.height = 16
+gameObject.newMap = 0;
+gameObject.newLinkX = 68;
+gameObject.newLinkY = 96;
+gameObject.isPortal = true
+
+gameObjectsWoodSword.push(gameObject)
+
+bundle = new MapBundle(mapWoodSword, gameObjectsWoodSword)
+
+maps.push(bundle)
+
+gameMap = maps[0].map
+gameObjects = maps[0].gameObjects
 
 function keyDownHandler(e){
    if(e.keyCode == 37){
