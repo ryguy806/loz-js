@@ -347,6 +347,61 @@ function gameObjectCollision(x, y, objects, isLink){
 	}
 }
 
+function drawGameObjects(){
+   for(let i = 0; i < objects.length; i++){
+      if(gameObjects[i].isPickUpItem) {
+         // 0 => Boomerang
+         // 1 => Bomb
+         // 2 => Bow
+         // 3 => Candle
+         // 4 => Flute
+         // 5 => Meat
+         // 6 => Potion (red or blue)
+         // 7 => Magic Rod
+         // 8 => Raft
+         // 9 => Book of Magic
+         //10 => Ring
+         //11 => Ladder
+         //12 => key
+         //13 => Bracelet
+         //14 => Wooden Sword
+         switch (gameObjects[i].pickUpItemNum) {
+            case 0:
+               break
+            case 1:
+               break
+            case 2:
+               break
+            case 3:
+               break
+            case 4:
+               break
+            case 5:
+               break
+            case 6:
+               break
+            case 7:
+               break
+            case 8:
+               break
+            case 9:
+               break
+            case 10:
+               break
+            case 11:
+               break
+            case 12:
+               break
+            case 13:
+               break
+            case 14:
+               
+               break
+         }
+      }
+   }
+}
+
 function draw () {
    setTimeout(function() {
    requestAnimationFrame(draw);
