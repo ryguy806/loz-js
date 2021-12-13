@@ -22,6 +22,12 @@ let upPressed = false;
 let downPressed = false;
 let link1 = new Image();
 link1.src = "link.png";
+let hud = new Image();
+hud.src = 'pausescreen.png'
+let chars1 = new Image();
+chars1.src = 'chars.png'
+let chars2 = new Image();
+chars2.src = 'chars2.png'
 let animationCounter = 0;
 let currentAnimation = 0;
 let animationSpeed = 10;
@@ -395,7 +401,7 @@ function drawGameObjects(){
             case 13:
                break
             case 14:
-               
+               ctx.drawImage(hud, 555, 137, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16)
                break
          }
       }
