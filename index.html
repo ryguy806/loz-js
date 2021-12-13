@@ -430,7 +430,7 @@ function drawGameObjects(){
          ctx.fillText(gameObjects[i].line1Current, gameObjects[i].line1X, gameObjects[i].line1Y)
          ctx.fillText(gameObjects[i].line2Current, gameObjects[i].line2X, gameObjects[i].line2Y)
       }
-      if (gameObjects[i].isFlame) {
+      if(gameObjects[i].isFlame) {
          gameObjects.counter += 1
          if (gameObjects[i].counter % 5 == 0) gameObjects[i].imageNum += 1
          if (gameObjects[i].imageNum > 1) gameObjects[i].imageNum = 0
@@ -440,6 +440,9 @@ function drawGameObjects(){
          if (gameObjects[i].imageNum == 1) {
             ctx.drawImage(chars2, 52, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16)
          }
+      }
+      if(gameObjects[i].isOldMan) {
+         ctx.drawImage(char1, 1, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16)
       }
    }
 }
