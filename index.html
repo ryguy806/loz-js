@@ -444,6 +444,9 @@ function drawGameObjects(){
       if(gameObjects[i].isOldMan) {
          ctx.drawImage(char1, 1, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16)
       }
+      if(gameObjects[i].isOldWoman) {
+         ctx.drawImage(char1, 35, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16)
+      }
    }
 }
 
@@ -456,6 +459,7 @@ function draw () {
    drawMap(gameMap);
    drawLink();
    gameObjectCollision(linkX, linkY, gameObjects, true);
+   drawGameObjects();
    },1000/fps);
 }
 draw();
