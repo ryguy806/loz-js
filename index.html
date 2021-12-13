@@ -32,8 +32,7 @@ let gameObjects = [];
 let maps = [];
 let gameMap = null;
 
-function GameObject()
-{
+function GameObject(){
 	this.x = 0;
 	this.y = 0;
 	this.width = 0;
@@ -44,164 +43,128 @@ function GameObject()
 	this.isPortal = false;
 }
 
-function MapBundle(map, object)
-{
+function MapBundle(map, object){
 	this.map = map;
 	this.gameobjects = object;
 }
 
 function keyDownHandler(e){
-    if(e.keyCode == 37)
-    {
+    if(e.keyCode == 37){
 	   leftPressed = true;
 	   lastButtonPressed = "left";
 	}
-	else if(e.keyCode == 39)
-	{
+	else if(e.keyCode == 39){
 	   rightPressed = true;
 	   lastButtonPressed = "right";
 	}
-	else if(e.keyCode == 38)
-	{
+	else if(e.keyCode == 38){
 	   upPressed = true;
 	   lastButtonPressed = "up";
 	}
-	else if(e.keyCode == 40)
-	{
+	else if(e.keyCode == 40){
 	   downPressed = true;
 	   lastButtonPressed = "down";
 	}
 }
 
 function keyUpHandler(e){
-    if(e.keyCode == 37)
-	{
+    if(e.keyCode == 37){
 	   leftPressed = false;
 	}
-	else if(e.keyCode == 39)
-	{
+	else if(e.keyCode == 39){
 	   rightPressed = false;
 	}
-	else if(e.keyCode == 38)
-	{
+	else if(e.keyCode == 38){
 	   upPressed = false;
 	}
-	else if(e.keyCode == 40)
-	{
+	else if(e.keyCode == 40){
 	   downPressed = false;
 	}
 }
 
 
-function drawLink()
-{
+function drawLink(){
 	let speed = 2;
 	animationCounter++;
 	
-	if(leftPressed && !collision(linkX - speed, linkY, gameMap))
-	{
+	if(leftPressed && !collision(linkX - speed, linkY, gameMap)){
 			linkX -= speed;
-			if(currentAnimation == 0)
-			{
+			if(currentAnimation == 0){
 				ctx.drawImage(link1, 30, 0, 16, 16, linkX, linkY, 16, 16);
 			}
-			else if(currentAnimation == 1)
-			{
+			else if(currentAnimation == 1){
 				ctx.drawImage(link1, 30, 30, 16, 16,linkX, linkY, 16, 16);
 			}
-			if(animationCounter >= 6)
-			{
+			if(animationCounter >= 6){
 				currentAnimation++;
 				animationCounter = 0;
-				if(currentAnimation > 1)
-				{
+				if(currentAnimation > 1){
 					currentAnimation = 0;
 				}
 			}
 	}
-	else if(rightPressed & !collision(linkX  + speed, linkY, gameMap))
-	{
+	else if(rightPressed & !collision(linkX  + speed, linkY, gameMap)){
 		linkX += speed;
-		if(currentAnimation == 0)
-			{
+		if(currentAnimation == 0){
 				ctx.drawImage(link1, 91, 0, 16, 16, linkX, linkY, 16, 16);
 			}
-			else if(currentAnimation == 1)
-			{
+			else if(currentAnimation == 1){
 				ctx.drawImage(link1, 91, 30, 16, 16,linkX, linkY, 16, 16);
 			}
-			if(animationCounter >= 6)
-			{
+			if(animationCounter >= 6){
 				currentAnimation++;
 				animationCounter = 0;
-				if(currentAnimation > 1)
-				{
+				if(currentAnimation > 1){
 					currentAnimation = 0;
 				}
 			}
 	}
-	else if(upPressed & !collision(linkX, linkY - speed, gameMap))
-	{
+	else if(upPressed & !collision(linkX, linkY - speed, gameMap)){
 		linkY -= speed;
-		if(currentAnimation == 0)
-			{
+		if(currentAnimation == 0){
 				ctx.drawImage(link1, 62, 0, 16, 16, linkX, linkY, 16, 16);
 			}
-			else if(currentAnimation == 1)
-			{
+			else if(currentAnimation == 1){
 				ctx.drawImage(link1, 62, 30, 16, 16,linkX, linkY, 16, 16);
 			}
-			if(animationCounter >= 6)
-			{
+			if(animationCounter >= 6){
 				currentAnimation++;
 				animationCounter = 0;
-				if(currentAnimation > 1)
-				{
+				if(currentAnimation > 1){
 					currentAnimation = 0;
 				}
 			}
 	}
-	else if(downPressed & !collision(linkX, linkY + speed, gameMap))
-	{
+	else if(downPressed & !collision(linkX, linkY + speed, gameMap)){
 		linkY += speed;
-		if(currentAnimation == 0)
-			{
+		if(currentAnimation == 0){
 				ctx.drawImage(link1, 0, 0, 16, 16, linkX, linkY, 16, 16);
 			}
-			else if(currentAnimation == 1)
-			{
+			else if(currentAnimation == 1){
 				ctx.drawImage(link1, 0, 30, 16, 16,linkX, linkY, 16, 16);
 			}
-			if(animationCounter >= 6)
-			{
+			if(animationCounter >= 6){
 				currentAnimation++;
 				animationCounter = 0;
-				if(currentAnimation > 1)
-				{
+				if(currentAnimation > 1){
 					currentAnimation = 0;
 				}
 			}
 	}
-	
-	else
-	{
-		if(lastButtonPressed == "down")
-		{
+	else{
+		if(lastButtonPressed == "down"){
 			ctx.drawImage(link1, 0, 0, 
 			16, 16, linkX, linkY, 16, 16);
 		}
-		if(lastButtonPressed == "up")
-		{
+		if(lastButtonPressed == "up"){
 			ctx.drawImage(link1, 62, 0, 
 			16, 16, linkX, linkY, 16, 16);
 		}
-		if(lastButtonPressed == "left")
-		{
+		if(lastButtonPressed == "left"){
 			ctx.drawImage(link1, 30, 0, 
 			16, 16, linkX, linkY, 16, 16);
 		}
-		if(lastButtonPressed == "right")
-		{
+		if(lastButtonPressed == "right"){
 			ctx.drawImage(link1, 91, 0, 
 			16, 16, linkX, linkY, 16, 16);
 		}
@@ -286,12 +249,9 @@ maps.push(bundle);
 gameMap = maps[0].map;
 gameObjects = maps[0].gameobjects;
 
-function drawMap(level)
-{
-	for(let i = 0; i < level.length; i++)
-	{
-		for(let j = 0; j < level[i].length; j++)
-		{
+function drawMap(level){
+	for(let i = 0; i < level.length; i++){
+		for(let j = 0; j < level[i].length; j++){
 			ctx.drawImage(worldTiles, ((level[i][j]%18) * 17) + 1,
 			(Math.floor(level[i][j]/18) * 17) + 1, 
 			16, 16, j *16, i *16, 16, 16);
@@ -299,19 +259,15 @@ function drawMap(level)
 	}
 }
 
-function collision(x, y, map)
-{	
-	for(let i = 0; i < map.length; i++)
-	{
-		for(let j = 0; j < map[i].length; j++)
-			{
-				if(map[i][j] != 2 && map[i][j] != 28)
-				{
+function collision(x, y, map){	
+	for(let i = 0; i < map.length; i++){
+		for(let j = 0; j < map[i].length; j++){
+				if(map[i][j] != 2 && map[i][j] != 28){
 					if (x <= j*16 + 16 &&
 					   x + 12 >= j*16 &&
 					   y + 10 <= i*16 + 16 &&
 					   y + 16 >= i*16 ) 
-					{
+{
 						return true;
 					}
 				}
@@ -320,19 +276,14 @@ function collision(x, y, map)
 	return false;	
 }
 
-function gameObjectCollision(x, y, objects, isLink)
-{
-	if(isLink)
-	{
-		for(let i = 0; i < objects.length; i++)
-		{
+function gameObjectCollision(x, y, objects, isLink){
+	if(isLink){
+		for(let i = 0; i < objects.length; i++){
 			if(x <= objects[i].x + objects[i].width &&
 			x + 16 >= objects[i].x &&
 			y <= objects[i].y + objects[i].height &&
-			y + 16 >= objects[i].y)
-			{
-				if(objects[i].isPortal)
-				{
+			y + 16 >= objects[i].y){
+				if(objects[i].isPortal){
 					gameMap = maps[objects[i].newMap].map;
 					gameObjects = maps[objects[i].newMap].gameobjects;
 					linkX = objects[i].newLinkX;
