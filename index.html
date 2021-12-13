@@ -31,6 +31,8 @@ let linkX = 116;
 let gameObjects = [];
 let maps = [];
 let gameMap = null;
+let lastPickedUpItem = 0;
+let playPickUpItemAnimation = false;
 
 function GameObject(){
 	this.x = 0;
@@ -41,6 +43,23 @@ function GameObject(){
 	this.newLinkX = 0;
 	this.newLinkY = 0;
 	this.isPortal = false;
+
+   this.counter = 0;
+   this.imageNum = 0;
+   this.isText = false;
+   this.line1Full = ""
+   this.line1Current = ""
+   this.line1X = 0;
+   this.line1Y = 0;
+   this.line2Full = ""
+   this.line2Current = ""
+   this.line2X = 0;
+   this.line2Y = 0;
+   this.isOldMan = false;
+   this.isPickUpItem = false;
+   this.pickUpItemNum = 0;
+   this.isFlame = false;
+   this.isOldWoman = false;
 }
 
 function MapBundle(map, object){
@@ -221,6 +240,39 @@ let mapWoodSword = [
 [ 55, 55, 37, 37, 37, 37, 37, 28, 28, 37, 37, 37, 37, 37, 55, 55],
 [ 55, 55, 55, 55, 55, 55, 55, 28, 28, 55, 55, 55, 55, 55, 55, 55]];
 let gameObjectsWoodSword = [];
+
+gameObject = new GameObject()
+gameObject.x = (4 * 16) + 8;
+gameObject.y = (8 * 16);
+gameObject.width = 16;
+gameObject.height = 16;
+gameObject.isFlame = true;
+gameObjectsWoodSword.push(gameObject);
+
+gameObject = new GameObject()
+gameObject.x = (10 * 16) + 8;
+gameObject.y = (8 * 16);
+gameObject.width = 16;
+gameObject.height = 16;
+gameObject.isFlame = true;
+gameObjectsWoodSword.push(gameObject);
+
+gameObject = new GameObject()
+gameObject.x = (7 * 16) + 8;
+gameObject.y = (8 * 16);
+gameObject.width = 16;
+gameObject.height = 16;
+gameObject.isOldMan = true;
+gameObjectsWoodSword.push(gameObject);
+
+gameObject = new GameObject()
+gameObject.x = (8 * 16) - 4;
+gameObject.y = (9.5 * 16);
+gameObject.width = 8;
+gameObject.height = 16;
+gameObject.isPickUpItem = true;
+gameObject.pickUpItemNum = 14
+gameObjectsWoodSword.push(gameObject);
 
 gameObject = new GameObject();
 gameObject.x = 112;
