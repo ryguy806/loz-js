@@ -12,51 +12,200 @@ let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 document.addEventListener("keydown",keyDownHandler, false);
 document.addEventListener("keyup",keyUpHandler,false);
-document.body.style.zoom = "300%";
+document.body.style.zoom = "288%";
 let fps = 60;
 let worldTiles = new Image();
-let link = new Image();
-link.src = "link.png"
 worldTiles.src = "tiles-overworld.png";
-
-// Key event controllers.
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
 let downPressed = false;
-
-let lastButtonPressed = 'up';
-
-// Animation Variables.
+let link1 = new Image();
+link1.src = "link.png";
 let animationCounter = 0;
 let currentAnimation = 0;
-
 let animationSpeed = 10;
-
-//Link Starting Position
-let linkX = 116;
+let lastButtonPressed = "up";
 let linkY = 135;
-
+let linkX = 116;
 let gameObjects = [];
 let maps = [];
 let gameMap = null;
 
-function GameObject(){
-   this.x = 0
-   this.y = 0
-   this.width = 0
-   this.height = 0
-
-   this.newMap = 0
-   this.newLinkX = 0
-   this.newLinkY = 0
-
-   this.isPortal = false
+function GameObject()
+{
+	this.x = 0;
+	this.y = 0;
+	this.width = 0;
+	this.height = 0;
+	this.newMap = 0;
+	this.newLinkX = 0;
+	this.newLinkY = 0;
+	this.isPortal = false;
 }
 
-function MapBundle(map, object){
-   this.map = map
-   this.gameObject = object
+function MapBundle(map, object)
+{
+	this.map = map;
+	this.gameobjects = object;
+}
+
+function keyDownHandler(e){
+    if(e.keyCode == 37)
+    {
+	   leftPressed = true;
+	   lastButtonPressed = "left";
+	}
+	else if(e.keyCode == 39)
+	{
+	   rightPressed = true;
+	   lastButtonPressed = "right";
+	}
+	else if(e.keyCode == 38)
+	{
+	   upPressed = true;
+	   lastButtonPressed = "up";
+	}
+	else if(e.keyCode == 40)
+	{
+	   downPressed = true;
+	   lastButtonPressed = "down";
+	}
+}
+
+function keyUpHandler(e){
+    if(e.keyCode == 37)
+	{
+	   leftPressed = false;
+	}
+	else if(e.keyCode == 39)
+	{
+	   rightPressed = false;
+	}
+	else if(e.keyCode == 38)
+	{
+	   upPressed = false;
+	}
+	else if(e.keyCode == 40)
+	{
+	   downPressed = false;
+	}
+}
+
+
+function drawLink()
+{
+	let speed = 2;
+	animationCounter++;
+	
+	if(leftPressed && !collision(linkX - speed, linkY, gameMap))
+	{
+			linkX -= speed;
+			if(currentAnimation == 0)
+			{
+				ctx.drawImage(link1, 30, 0, 16, 16, linkX, linkY, 16, 16);
+			}
+			else if(currentAnimation == 1)
+			{
+				ctx.drawImage(link1, 30, 30, 16, 16,linkX, linkY, 16, 16);
+			}
+			if(animationCounter >= 6)
+			{
+				currentAnimation++;
+				animationCounter = 0;
+				if(currentAnimation > 1)
+				{
+					currentAnimation = 0;
+				}
+			}
+	}
+	else if(rightPressed & !collision(linkX  + speed, linkY, gameMap))
+	{
+		linkX += speed;
+		if(currentAnimation == 0)
+			{
+				ctx.drawImage(link1, 91, 0, 16, 16, linkX, linkY, 16, 16);
+			}
+			else if(currentAnimation == 1)
+			{
+				ctx.drawImage(link1, 91, 30, 16, 16,linkX, linkY, 16, 16);
+			}
+			if(animationCounter >= 6)
+			{
+				currentAnimation++;
+				animationCounter = 0;
+				if(currentAnimation > 1)
+				{
+					currentAnimation = 0;
+				}
+			}
+	}
+	else if(upPressed & !collision(linkX, linkY - speed, gameMap))
+	{
+		linkY -= speed;
+		if(currentAnimation == 0)
+			{
+				ctx.drawImage(link1, 62, 0, 16, 16, linkX, linkY, 16, 16);
+			}
+			else if(currentAnimation == 1)
+			{
+				ctx.drawImage(link1, 62, 30, 16, 16,linkX, linkY, 16, 16);
+			}
+			if(animationCounter >= 6)
+			{
+				currentAnimation++;
+				animationCounter = 0;
+				if(currentAnimation > 1)
+				{
+					currentAnimation = 0;
+				}
+			}
+	}
+	else if(downPressed & !collision(linkX, linkY + speed, gameMap))
+	{
+		linkY += speed;
+		if(currentAnimation == 0)
+			{
+				ctx.drawImage(link1, 0, 0, 16, 16, linkX, linkY, 16, 16);
+			}
+			else if(currentAnimation == 1)
+			{
+				ctx.drawImage(link1, 0, 30, 16, 16,linkX, linkY, 16, 16);
+			}
+			if(animationCounter >= 6)
+			{
+				currentAnimation++;
+				animationCounter = 0;
+				if(currentAnimation > 1)
+				{
+					currentAnimation = 0;
+				}
+			}
+	}
+	
+	else
+	{
+		if(lastButtonPressed == "down")
+		{
+			ctx.drawImage(link1, 0, 0, 
+			16, 16, linkX, linkY, 16, 16);
+		}
+		if(lastButtonPressed == "up")
+		{
+			ctx.drawImage(link1, 62, 0, 
+			16, 16, linkX, linkY, 16, 16);
+		}
+		if(lastButtonPressed == "left")
+		{
+			ctx.drawImage(link1, 30, 0, 
+			16, 16, linkX, linkY, 16, 16);
+		}
+		if(lastButtonPressed == "right")
+		{
+			ctx.drawImage(link1, 91, 0, 
+			16, 16, linkX, linkY, 16, 16);
+		}
+	}
 }
 
 let map7_7 = [
@@ -75,24 +224,23 @@ let map7_7 = [
 [ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
 [ 61, 61, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 61, 61],
 [ 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61]];
-let objects7_7 = []
+let objects7_7 = [];
 
-let gameObject = new GameObject()
-gameObject.x = 72
-gameObject.y = 72
-gameObject.width = 8
-gameObject.height = 16
+let gameObject = new GameObject();
+gameObject.x = 72;
+gameObject.y = 72;
+gameObject.width = 8;
+gameObject.height = 16;
 gameObject.newMap = 1;
 gameObject.newLinkX = 120;
 gameObject.newLinkY = 220;
-gameObject.isPortal = true
+gameObject.isPortal = true;
+objects7_7.push(gameObject);
 
-objects7_7.push(gameObject)
+let bundle = new MapBundle(map7_7, objects7_7);
+maps.push(bundle);
 
-let bundle = new MapBundle(map7_7, objects7_7)
-
-maps.push(bundle)
-
+///////////////////////////////////////////////////////////////////
 let mapWoodSword = [
 [ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
 [ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
@@ -111,147 +259,35 @@ let mapWoodSword = [
 [ 55, 55, 55, 55, 55, 55, 55, 28, 28, 55, 55, 55, 55, 55, 55, 55]];
 let gameObjectsWoodSword = [];
 
-gameObject = new GameObject()
-gameObject.x = 112
-gameObject.y = 240
-gameObject.width = 16
-gameObject.height = 16
+gameObject = new GameObject();
+gameObject.x = 112;
+gameObject.y = 240;
+gameObject.width = 16;
+gameObject.height = 16;
 gameObject.newMap = 0;
 gameObject.newLinkX = 68;
 gameObject.newLinkY = 96;
-gameObject.isPortal = true
+gameObject.isPortal = true;
+gameObjectsWoodSword.push(gameObject);
 
-gameObjectsWoodSword.push(gameObject)
-
-gameObject = new GameObject()
-gameObject.x = 128
-gameObject.y = 240
-gameObject.width = 16
-gameObject.height = 16
+gameObject = new GameObject();
+gameObject.x = 128;
+gameObject.y = 240;
+gameObject.width = 16;
+gameObject.height = 16;
 gameObject.newMap = 0;
 gameObject.newLinkX = 68;
 gameObject.newLinkY = 96;
-gameObject.isPortal = true
+gameObject.isPortal = true;
+gameObjectsWoodSword.push(gameObject);
 
-gameObjectsWoodSword.push(gameObject)
+bundle = new MapBundle(mapWoodSword, gameObjectsWoodSword);
+maps.push(bundle);
+gameMap = maps[0].map;
+gameObjects = maps[0].gameobjects;
 
-bundle = new MapBundle(mapWoodSword, gameObjectsWoodSword)
-
-maps.push(bundle)
-
-gameMap = maps[0].map
-gameObjects = maps[0].gameObjects
-
-function keyDownHandler(e){
-   if(e.keyCode == 37){
-      leftPressed = true
-      lastButtonPressed = 'left'
-   }
-   else if(e.keyCode == 39){
-      rightPressed = true
-      lastButtonPressed = 'right'
-   }
-   else if(e.keyCode == 38){
-      upPressed = true
-      lastButtonPressed = 'up'
-   }
-   else if(e.keyCode == 40){
-      downPressed = true
-      lastButtonPressed = 'down'
-   }
-}
-
-function keyUpHandler(e){
-   if(e.keyCode == 37){
-      leftPressed = false
-   }
-   else if(e.keyCode == 39){
-      rightPressed = false
-   }
-   else if(e.keyCode == 38){
-      upPressed = false
-   }
-   else if(e.keyCode == 40){
-      downPressed = false
-   }
-}
-
-function drawLink(){
-   let speed = 2;
-   animationCounter++;
-   if(leftPressed && !collision(linkX - speed, linkY, map7_7)){
-      linkX -= speed
-      if(currentAnimation == 0){
-         ctx.drawImage(link, 30, 0, 16, 16, linkX, linkY, 16, 16)
-      }
-      else if(currentAnimation == 1){
-         ctx.drawImage(link, 30, 30, 16, 16, linkX, linkY, 16, 16)
-      }
-      if(animationCounter >= 6){
-         currentAnimation++
-         animationCounter = 0
-         if(currentAnimation > 1) currentAnimation = 0
-      }
-   }
-   else if(rightPressed && !collision(linkX + speed, linkY, map7_7)){
-      linkX += speed
-      if(currentAnimation == 0){
-         ctx.drawImage(link, 91, 0, 16, 16, linkX, linkY, 16, 16)
-      }
-      else if(currentAnimation == 1){
-         ctx.drawImage(link, 91, 30, 16, 16, linkX, linkY, 16, 16)
-      }
-      if(animationCounter >= 6){
-         currentAnimation++
-         animationCounter = 0
-         if(currentAnimation > 1) currentAnimation = 0
-      }
-   }
-   else if(downPressed && !collision(linkX, linkY + speed, map7_7)){
-      linkY += speed
-      if(currentAnimation == 0){
-         ctx.drawImage(link, 0, 0, 16, 16, linkX, linkY, 16, 16)
-      }
-      else if(currentAnimation == 1){
-         ctx.drawImage(link, 0, 30, 16, 16, linkX, linkY, 16, 16)
-      }
-      if(animationCounter >= 6){
-         currentAnimation++
-         animationCounter = 0
-         if(currentAnimation > 1) currentAnimation = 0
-      }
-   }
-   else if(upPressed && !collision(linkX, linkY - speed, map7_7)){
-      linkY -= speed
-      if(currentAnimation == 0){
-         ctx.drawImage(link, 62, 0, 16, 16, linkX, linkY, 16, 16)
-      }
-      else if(currentAnimation == 1){
-         ctx.drawImage(link, 62, 30, 16, 16, linkX, linkY, 16, 16)
-      }
-      if(animationCounter >= 6){
-         currentAnimation++
-         animationCounter = 0
-         if(currentAnimation > 1) currentAnimation = 0
-      }
-   }
-   else {
-       if(lastButtonPressed == "down"){
-         ctx.drawImage(link, 0, 0, 16, 16, linkX, linkY, 16, 16)
-       }
-       else if(lastButtonPressed == "up"){
-         ctx.drawImage(link, 62, 0, 16, 16, linkX, linkY, 16, 16)
-       }
-       else if(lastButtonPressed == "left"){
-         ctx.drawImage(link, 30, 0, 16, 16, linkX, linkY, 16, 16)
-       }
-       else if(lastButtonPressed == "right"){
-         ctx.drawImage(link, 91, 0, 16, 16, linkX, linkY, 16, 16)
-       }
-   }
-}
-
-function drawMap(level){
+function drawMap(level)
+{
 	for(let i = 0; i < level.length; i++)
 	{
 		for(let j = 0; j < level[i].length; j++)
@@ -263,19 +299,49 @@ function drawMap(level){
 	}
 }
 
-function collision(x, y, map){
-   for(let i = 0; i < map.length; i++)
+function collision(x, y, map)
+{	
+	for(let i = 0; i < map.length; i++)
 	{
 		for(let j = 0; j < map[i].length; j++)
+			{
+				if(map[i][j] != 2 && map[i][j] != 28)
+				{
+					if (x <= j*16 + 16 &&
+					   x + 12 >= j*16 &&
+					   y + 10 <= i*16 + 16 &&
+					   y + 16 >= i*16 ) 
+					{
+						return true;
+					}
+				}
+			}
+	}
+	return false;	
+}
+
+function gameObjectCollision(x, y, objects, isLink)
+{
+	if(isLink)
+	{
+		for(let i = 0; i < objects.length; i++)
 		{
-			if(map[i][j] != 2) { //Able to collide
-            if(x <= j * 16 + 16 && x + 12 >= j * 16 && y + 10 <= i * 16 + 16 && y + 16 >= i * 16) {
-               return true;
-            }
-         }
+			if(x <= objects[i].x + objects[i].width &&
+			x + 16 >= objects[i].x &&
+			y <= objects[i].y + objects[i].height &&
+			y + 16 >= objects[i].y)
+			{
+				if(objects[i].isPortal)
+				{
+					gameMap = maps[objects[i].newMap].map;
+					gameObjects = maps[objects[i].newMap].gameobjects;
+					linkX = objects[i].newLinkX;
+					linkY = objects[i].newLinkY;
+				}
+			
+			}
 		}
 	}
-   return false;
 }
 
 function draw () {
@@ -284,8 +350,9 @@ function draw () {
    ctx.fillStyle = "rgb(20,20,20)";
    ctx.fillRect(0,0,256,240);
    ///all code goes here
-   drawMap(map7_7);
+   drawMap(gameMap);
    drawLink();
+   gameObjectCollision(linkX, linkY, gameObjects, true);
    },1000/fps);
 }
 draw();
