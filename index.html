@@ -280,6 +280,16 @@ gameObject.isPickUpItem = true;
 gameObject.pickUpItemNum = 14
 gameObjectsWoodSword.push(gameObject);
 
+gameObject = new GameObject()
+gameObject.isText = true;
+gameObject.line1Full = "IT'S DANGEROUS TO GO"
+gameObject.line2Full = "ALONE! TAKE THIS!"
+gameObject.line1X = 3 * 16
+gameObject.line1Y = 7 * 16
+gameObject.line2X = 4 * 16
+gameObject.line2Y = (8 * 16) - 6
+gameObjectsWoodSword.push(gameObject);
+
 gameObject = new GameObject();
 gameObject.x = 112;
 gameObject.y = 240;
@@ -404,6 +414,9 @@ function drawGameObjects(){
                ctx.drawImage(hud, 555, 137, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16)
                break
          }
+      }
+      if(gameObjects[i].isText){
+
       }
    }
 }
