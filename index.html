@@ -73,7 +73,6 @@ function MapBundle(m, o){
 	this.gameobjects = o;
 }
 
-
 function keyDownHandler(e){
     if(e.keyCode == 37){
 	   leftPressed = true;
@@ -108,12 +107,19 @@ function keyUpHandler(e){
 	}
 }
 
-
 function drawLink(){
 	let speed = 2;
 	animationCounter++;
-	
-	if(leftPressed && !collision(linkX - speed, linkY, gameMap)){
+   if(playPickUpItemAnimation){
+      if(animationCounter < 150) {
+         ctx.drawImage(link1, 1, 150, 16, 16, linkX, linkY, 16, 16)
+      }
+      else {
+         playPickUpItemAnimation = false
+      }
+   }
+   else {
+      if(leftPressed && !collision(linkX - speed, linkY, gameMap)){
 			linkX -= speed;
 			if(currentAnimation == 0){
 				ctx.drawImage(link1, 30, 0, 16, 16, linkX, linkY, 16, 16);
@@ -128,74 +134,74 @@ function drawLink(){
 					currentAnimation = 0;
 				}
 			}
-	}
-	else if(rightPressed & !collision(linkX  + speed, linkY, gameMap)){
-		linkX += speed;
-		if(currentAnimation == 0){
-				ctx.drawImage(link1, 91, 0, 16, 16, linkX, linkY, 16, 16);
       }
-      else if(currentAnimation == 1){
-         ctx.drawImage(link1, 91, 30, 16, 16,linkX, linkY, 16, 16);
-      }
-      if(animationCounter >= 6){
-         currentAnimation++;
-         animationCounter = 0;
-         if(currentAnimation > 1){
-            currentAnimation = 0;
+      else if(rightPressed & !collision(linkX  + speed, linkY, gameMap)){
+         linkX += speed;
+         if(currentAnimation == 0){
+               ctx.drawImage(link1, 91, 0, 16, 16, linkX, linkY, 16, 16);
+         }
+         else if(currentAnimation == 1){
+            ctx.drawImage(link1, 91, 30, 16, 16,linkX, linkY, 16, 16);
+         }
+         if(animationCounter >= 6){
+            currentAnimation++;
+            animationCounter = 0;
+            if(currentAnimation > 1){
+               currentAnimation = 0;
+            }
          }
       }
-	}
-	else if(upPressed & !collision(linkX, linkY - speed, gameMap)){
-		linkY -= speed;
-		if(currentAnimation == 0){
-         ctx.drawImage(link1, 62, 0, 16, 16, linkX, linkY, 16, 16);
-      }
-      else if(currentAnimation == 1){
-         ctx.drawImage(link1, 62, 30, 16, 16,linkX, linkY, 16, 16);
-      }
-      if(animationCounter >= 6){
-         currentAnimation++;
-         animationCounter = 0;
-         if(currentAnimation > 1){
-            currentAnimation = 0;
+      else if(upPressed & !collision(linkX, linkY - speed, gameMap)){
+         linkY -= speed;
+         if(currentAnimation == 0){
+            ctx.drawImage(link1, 62, 0, 16, 16, linkX, linkY, 16, 16);
+         }
+         else if(currentAnimation == 1){
+            ctx.drawImage(link1, 62, 30, 16, 16,linkX, linkY, 16, 16);
+         }
+         if(animationCounter >= 6){
+            currentAnimation++;
+            animationCounter = 0;
+            if(currentAnimation > 1){
+               currentAnimation = 0;
+            }
          }
       }
-	}
-	else if(downPressed & !collision(linkX, linkY + speed, gameMap)){
-		linkY += speed;
-		if(currentAnimation == 0){
-         ctx.drawImage(link1, 0, 0, 16, 16, linkX, linkY, 16, 16);
-      }
-      else if(currentAnimation == 1){
-         ctx.drawImage(link1, 0, 30, 16, 16,linkX, linkY, 16, 16);
-      }
-      if(animationCounter >= 6){
-         currentAnimation++;
-         animationCounter = 0;
-         if(currentAnimation > 1){
-            currentAnimation = 0;
+      else if(downPressed & !collision(linkX, linkY + speed, gameMap)){
+         linkY += speed;
+         if(currentAnimation == 0){
+            ctx.drawImage(link1, 0, 0, 16, 16, linkX, linkY, 16, 16);
+         }
+         else if(currentAnimation == 1){
+            ctx.drawImage(link1, 0, 30, 16, 16,linkX, linkY, 16, 16);
+         }
+         if(animationCounter >= 6){
+            currentAnimation++;
+            animationCounter = 0;
+            if(currentAnimation > 1){
+               currentAnimation = 0;
+            }
          }
       }
-	}
-	
-	else{
-		if(lastButtonPressed == "down"){
-			ctx.drawImage(link1, 0, 0, 
-			16, 16, linkX, linkY, 16, 16);
-		}
-		if(lastButtonPressed == "up"){
-			ctx.drawImage(link1, 62, 0, 
-			16, 16, linkX, linkY, 16, 16);
-		}
-		if(lastButtonPressed == "left"){
-			ctx.drawImage(link1, 30, 0, 
-			16, 16, linkX, linkY, 16, 16);
-		}
-		if(lastButtonPressed == "right"){
-			ctx.drawImage(link1, 91, 0, 
-			16, 16, linkX, linkY, 16, 16);
-		}
-	}
+      else{
+         if(lastButtonPressed == "down"){
+            ctx.drawImage(link1, 0, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
+         if(lastButtonPressed == "up"){
+            ctx.drawImage(link1, 62, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
+         if(lastButtonPressed == "left"){
+            ctx.drawImage(link1, 30, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
+         if(lastButtonPressed == "right"){
+            ctx.drawImage(link1, 91, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
+      }
+   }
 }
 
 let map7_7 = [
