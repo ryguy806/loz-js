@@ -39,6 +39,7 @@ let maps = []; //an array of map bundles
 let gameMap = null;
 let lastPickUpItem = 0;
 let playPickUpItemAnimation = false;
+let swordEquipped = 0
 
 function GameObject(){
 	this.x = 0;
@@ -116,6 +117,54 @@ function drawLink(){
       }
       else {
          playPickUpItemAnimation = false
+      }
+      switch(lastPickUpItem){
+         case 0:
+
+            break;
+         case 1:
+
+            break;
+         case 2:
+
+            break;
+         case 3:
+
+            break;
+         case 4:
+
+            break;
+         case 5:
+
+            break;	
+         case 6:
+
+            break;
+         case 7:
+
+            break;
+         case 8:
+
+            break;
+         case 9:
+
+            break;
+         case 10:
+
+            break;
+         case 11:
+
+            break;
+         case 12:
+
+            break;
+         case 13:
+
+            break;
+         case 14:
+            ctx.drawImage(hud, 555, 137, 8, 16, 
+               linkX - 2, linkY - 14, 8, 16);
+            break;
       }
    }
    else {
@@ -364,7 +413,75 @@ function gameObjectCollision(x, y, objects, isLink){
                   gameObjects = maps[objects[i].newMap].gameobjects;
                   linkX = objects[i].newLinkX;
                   linkY = objects[i].newLinkY;
-                  
+               }
+               if(objects[i].isPickUpItem){
+                  ///There are a number of pick up items. The first 8 are selectable within
+                  /// the inventory screen. The following 6 sit on top of the selectable inventory
+                  /// and are automatically equipped and used by link.
+                  //0 - boomerang
+                  //1 - bomb
+                  //2 - bow and arrow
+                  //3 - candle
+                  //4 - flute
+                  //5 - meat
+                  //6 - potion(red or blue)
+                  //7 - magic rod
+                  //8 - raft
+                  //9 - book of magic
+                  //10 - ring
+                  //11 - ladder
+                  //12 - key
+                  //13 - bracelet
+                  //14 - wood sword
+                  switch(objects[i].pickUpItemNum){
+                     case 0:
+         
+                        break;
+                     case 1:
+         
+                        break;
+                     case 2:
+         
+                        break;
+                     case 3:
+         
+                        break;
+                     case 4:
+         
+                        break;
+                     case 5:
+         
+                        break;	
+                     case 6:
+         
+                        break;
+                     case 7:
+         
+                        break;
+                     case 8:
+         
+                        break;
+                     case 9:
+         
+                        break;
+                     case 10:
+         
+                        break;
+                     case 11:
+         
+                        break;
+                     case 12:
+         
+                        break;
+                     case 13:
+         
+                        break;
+                     case 14:
+                        lastPickUpItem = 14
+                        swordEquipped = 1
+                        break;
+                  }
+                  objects.splice(i, 1)
                }
          }
       }
