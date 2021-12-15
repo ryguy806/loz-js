@@ -39,7 +39,13 @@ let maps = []; //an array of map bundles
 let gameMap = null;
 let lastPickUpItem = 0;
 let playPickUpItemAnimation = false;
-let swordEquipped = 0
+let swordEquipped = 0;
+
+function playSound(source) {
+   let sound = new Audio();
+   sound.src = source;
+   sound.play()
+}
 
 function GameObject(){
 	this.x = 0;
