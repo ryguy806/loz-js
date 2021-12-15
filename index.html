@@ -415,6 +415,7 @@ function gameObjectCollision(x, y, objects, isLink){
                   linkY = objects[i].newLinkY;
                }
                if(objects[i].isPickUpItem){
+                  playPickUpItemAnimation = true
                   ///There are a number of pick up items. The first 8 are selectable within
                   /// the inventory screen. The following 6 sit on top of the selectable inventory
                   /// and are automatically equipped and used by link.
