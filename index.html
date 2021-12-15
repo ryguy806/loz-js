@@ -689,6 +689,13 @@ function drawHUD(){
 
    ctx.drawImage(hud, 528 + (8 * keyAmount) + keyAmount, 117, 8, 8, 96 + 8, 32, 8, 8);
    ctx.drawImage(hud, 528 + (8 * bombAmount) + bombAmount, 117, 8, 8, 96 + 8, 41, 8, 8);
+
+   ctx.fillRect(128, 24, 8, 16);
+   ctx.fillRect(152, 24, 8, 16);
+
+   if(swordEquipped == 1) {
+      ctx.drawImage(hud, 555, 137, 8, 16, 152, 24, 8, 16)
+   }
 }
 
 function draw () {
