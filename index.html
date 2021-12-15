@@ -40,11 +40,11 @@ let gameMap = null;
 let lastPickUpItem = 0;
 let playPickUpItemAnimation = false;
 let swordEquipped = 0;
-let rupeeAmount = 0;
+let rupeeAmount = 25;
 let linkHearts = 3;
 let currentLinkHearts = 3;
-let keyAmount = 0;
-let bombAmount = 0;
+let keyAmount = 1;
+let bombAmount = 5;
 let arrowAmount = 0;
 
 function playSound(source) {
@@ -663,32 +663,32 @@ function drawHUD(){
       else if (halfHearts > 0 && fullHearts == 0) {
          ctx.drawImage(hud, 636, 117, 8, 8, 176, 40, 8, 8);
       }
-
-      ctx.fillStyle = "black"
-      ctx.fillRect(96, 10, 24, 50)
-
-      if(rupeeAmount < 100) {
-         ctx.drawImage(hud, 519, 117, 8, 8, 96, 16, 8, 8);
-         let firstNum = rupeeAmount % 10;
-         ctx.drawImage(hud, 528 + (8 * firstNum) + firstNum, 117, 8, 8, 96 + 16, 16, 8, 8);
-         let secondNum = Math.floor(rupeeAmount / 10);
-         ctx.drawImage(hud, 528 + (8 * secondNum) + secondNum, 117, 8, 8, 96 + 8, 16, 8, 8);
-      }
-      else{
-         let firstNum = rupeeAmount % 10;
-         ctx.drawImage(hud, 528 + (8 * firstNum) + firstNum, 117, 8, 8, 96 + 16, 16, 8, 8);
-         let thirdNum = Math.floor(rupeeAmount / 100) * 100;
-         let secondNum = Math.floor((rupeeAmount - thirdNum) - firstNum) / 10;
-         ctx.drawImage(hud, 528 + (8 * secondNum) + secondNum, 117, 8, 8, 96 + 8, 16, 8, 8);
-         ctx.drawImage(hud, 528 + (8 * thirdNum) + thirdNum, 117, 8, 8, 96, 16, 8, 8);
-      }
-
-      ctx.drawImage(hud, 519, 117, 8, 8, 96, 32, 8, 8);
-      ctx.drawImage(hud, 519, 117, 8, 8, 96, 41, 8, 8);
-
-      ctx.drawImage(hud, 528 + (8 * keyAmount) + keyAmount, 117, 8, 8, 96 + 8, 16, 8, 8);
-      ctx.drawImage(hud, 528 + (8 * bombAmount) + bombAmount, 117, 8, 8, 96, 16, 8, 8);
    }
+
+   ctx.fillStyle = "black"
+   ctx.fillRect(96, 10, 24, 50)
+
+   if(rupeeAmount < 100) {
+      ctx.drawImage(hud, 519, 117, 8, 8, 96, 16, 8, 8);
+      let firstNum = rupeeAmount % 10;
+      ctx.drawImage(hud, 528 + (8 * firstNum) + firstNum, 117, 8, 8, 96 + 16, 16, 8, 8);
+      let secondNum = Math.floor(rupeeAmount / 10);
+      ctx.drawImage(hud, 528 + (8 * secondNum) + secondNum, 117, 8, 8, 96 + 8, 16, 8, 8);
+   }
+   else{
+      let firstNum = rupeeAmount % 10;
+      ctx.drawImage(hud, 528 + (8 * firstNum) + firstNum, 117, 8, 8, 96 + 16, 16, 8, 8);
+      let thirdNum = Math.floor(rupeeAmount / 100) * 100;
+      let secondNum = Math.floor((rupeeAmount - thirdNum) - firstNum) / 10;
+      ctx.drawImage(hud, 528 + (8 * secondNum) + secondNum, 117, 8, 8, 96 + 8, 16, 8, 8);
+      ctx.drawImage(hud, 528 + (8 * thirdNum) + thirdNum, 117, 8, 8, 96, 16, 8, 8);
+   }
+
+   ctx.drawImage(hud, 519, 117, 8, 8, 96, 32, 8, 8);
+   ctx.drawImage(hud, 519, 117, 8, 8, 96, 41, 8, 8);
+
+   ctx.drawImage(hud, 528 + (8 * keyAmount) + keyAmount, 117, 8, 8, 96 + 8, 32, 8, 8);
+   ctx.drawImage(hud, 528 + (8 * bombAmount) + bombAmount, 117, 8, 8, 96 + 8, 41, 8, 8);
 }
 
 function draw () {
