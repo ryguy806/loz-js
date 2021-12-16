@@ -24,6 +24,8 @@ let link1 = new Image();
 link1.src = "link.png";
 let hud = new Image();
 hud.src = "pausescreen.png";
+let enemies = new Image();
+enemies.src = "enemies.png";
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
@@ -79,6 +81,22 @@ function GameObject(){
 	this.isFlame = false;
 	this.isOldWoman = false;
 	this.pickUpItemName = "";
+   this.isRupee = false;
+   this.rupeeValue = 1;
+
+   this.isEnemy = false;
+   this.enemyType = 0;
+   this.nextX = 0;
+   this.nextY = 0;
+   this.isAttacking = false;
+   this.health = 0;
+   this.direction = "up";
+   this.enemy = [];
+   this.enemyCounter = 0;
+   this.enemyFrame = 0;
+   this.needsBounce = false;
+   this.bounceX = 0;
+   this.bounceY = 0;
 }
 
 function MapBundle(m, o){
@@ -292,6 +310,15 @@ gO.newLinkX = 120;
 gO.newLinkY = 220;
 gO.isPortal = true;
 let objects7_7 = [];
+objects7_7.push(gO);
+
+gO = new GameObject()
+gO.x = 160;
+gO.y = 184;
+gO.width = 16;
+gO.height = 16;
+gO.isEnemy = true;
+gO.enemyType = 1;
 objects7_7.push(gO);
 
 let bundle = new MapBundle(map7_7, objects7_7);
@@ -616,7 +643,51 @@ function drawGameObjects(){
 			ctx.drawImage(chars1, 35, 11, 16, 16, 
 						gameObjects[i].x, gameObjects[i].y, 16, 16);
 		}
-	}
+      if(gameObjects[i].isEnemy) {
+         if(gameObjects[i].enemyType == 1) {
+            gameObjects.enemyCounter++;
+            if(gameObjects[i].enemyCounter >= 10) {
+               gameObjects[i].enemyFrame++;
+               gameObjects[i].enemyCounter = 0;
+               if(gameObjects[i].enemyFrame > 1) {
+                 gameObjects[i].enemyFrame = 0;
+               }
+            }
+            if(gameObjects[i].direction == "down") {
+               if(gameObjects[i].enemyframe == 0) {
+                  ctx.drawImage(enemies, 0, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].enemyframe == 1) {
+                  ctx.drawImage(enemies, 0, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+            else if(gameObjects[i].direction == "up") {
+               if(gameObjects[i].enemyframe == 0) {
+                  ctx.drawImage(enemies, 60, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].enemyframe == 1) {
+                  ctx.drawImage(enemies, 60, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+            else if(gameObjects[i].direction == "left") {
+               if(gameObjects[i].enemyframe == 0) {
+                  ctx.drawImage(enemies, 30, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].enemyframe == 1) {
+                  ctx.drawImage(enemies, 30, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+            else{
+               if(gameObjects[i].enemyframe == 0) {
+                  ctx.drawImage(enemies, 90, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].enemyframe == 1) {
+                  ctx.drawImage(enemies, 90, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+         }
+      }
+   }
 }
 
 function drawHUD(){
