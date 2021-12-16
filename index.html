@@ -92,8 +92,8 @@ function GameObject(){
    this.health = 0;
    this.direction = "up";
    this.enemy = [];
-   this.enemyCounter = 0;
-   this.enemyFrame = 0;
+   this.counter = 0;
+   this.frame = 0;
    this.needsBounce = false;
    this.bounceX = 0;
    this.bounceY = 0;
@@ -645,27 +645,27 @@ function drawGameObjects(){
 		}
       if(gameObjects[i].isEnemy) {
          if(gameObjects[i].enemyType == 1) {
-            gameObjects.enemyCounter++;
-            if(gameObjects[i].enemyCounter >= 10) {
-               gameObjects[i].enemyFrame++;
-               gameObjects[i].enemyCounter = 0;
-               if(gameObjects[i].enemyFrame > 1) {
-                 gameObjects[i].enemyFrame = 0;
+            gameObjects.counter++;
+            if(gameObjects[i].counter >= 10) {
+               gameObjects[i].frame++;
+               gameObjects[i].counter = 0;
+               if(gameObjects[i].frame > 1) {
+                 gameObjects[i].frame = 0;
                }
             }
             if(gameObjects[i].direction == "down") {
-               if(gameObjects[i].enemyframe == 0) {
+               if(gameObjects[i].frame == 0) {
                   ctx.drawImage(enemies, 0, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
                }
-               if(gameObjects[i].enemyframe == 1) {
+               if(gameObjects[i].frame == 1) {
                   ctx.drawImage(enemies, 0, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
                }
             }
             else if(gameObjects[i].direction == "up") {
-               if(gameObjects[i].enemyframe == 0) {
+               if(gameObjects[i].frame == 0) {
                   ctx.drawImage(enemies, 60, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
                }
-               if(gameObjects[i].enemyframe == 1) {
+               if(gameObjects[i].frame == 1) {
                   ctx.drawImage(enemies, 60, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
                }
             }
