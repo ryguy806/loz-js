@@ -643,48 +643,48 @@ function drawGameObjects(){
 			ctx.drawImage(chars1, 35, 11, 16, 16, 
 						gameObjects[i].x, gameObjects[i].y, 16, 16);
 		}
-      if(gameObjects[i].isEnemy) {
-         if(gameObjects[i].enemyType == 1) {
-            gameObjects.counter++;
-            if(gameObjects[i].counter >= 10) {
-               gameObjects[i].frame++;
-               gameObjects[i].counter = 0;
-               if(gameObjects[i].frame > 1) {
-                 gameObjects[i].frame = 0;
-               }
-            }
-            if(gameObjects[i].direction == "down") {
-               if(gameObjects[i].frame == 0) {
-                  ctx.drawImage(enemies, 0, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-               if(gameObjects[i].frame == 1) {
-                  ctx.drawImage(enemies, 0, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-            }
-            else if(gameObjects[i].direction == "up") {
-               if(gameObjects[i].frame == 0) {
-                  ctx.drawImage(enemies, 60, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-               if(gameObjects[i].frame == 1) {
-                  ctx.drawImage(enemies, 60, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-            }
-            else if(gameObjects[i].direction == "left") {
-               if(gameObjects[i].enemyframe == 0) {
-                  ctx.drawImage(enemies, 30, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-               if(gameObjects[i].enemyframe == 1) {
-                  ctx.drawImage(enemies, 30, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-            }
-            else{
-               if(gameObjects[i].enemyframe == 0) {
-                  ctx.drawImage(enemies, 90, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-               if(gameObjects[i].enemyframe == 1) {
-                  ctx.drawImage(enemies, 90, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
-               }
-            }
+      if(gameObjects[i].isEnemy){
+			if(gameObjects[i].enemyType == 1){
+				gameObjects[i].counter++;
+				if(gameObjects[i].counter >= 10){
+					gameObjects[i].frame++;
+					gameObjects[i].counter = 0;
+					if(gameObjects[i].frame > 1){
+						gameObjects[i].frame = 0;
+					}
+				}
+				if(gameObjects[i].direction == "down"){
+					if(gameObjects[i].frame == 0){
+						ctx.drawImage(enemies, 0, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+					if(gameObjects[i].frame == 1){
+						ctx.drawImage(enemies, 0, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+				}
+				else if(gameObjects[i].direction == "up"){
+					if(gameObjects[i].frame == 0){
+						ctx.drawImage(enemies, 60, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+					if(gameObjects[i].frame == 1){
+						ctx.drawImage(enemies, 60, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+				}
+				else if(gameObjects[i].direction == "left"){
+					if(gameObjects[i].frame == 0){
+						ctx.drawImage(enemies, 30, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+					if(gameObjects[i].frame == 1){
+						ctx.drawImage(enemies, 30, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+				}
+				else{
+					if(gameObjects[i].frame == 0){
+						ctx.drawImage(enemies, 90, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+					if(gameObjects[i].frame == 1){
+						ctx.drawImage(enemies, 90, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+					}
+				}
          }
       }
    }
