@@ -212,7 +212,7 @@ function drawLink(){
             if (lastButtonPressed == "down") {
                ctx.drawImage(link1, 0, 60, 16, 16, linkX, linkY, 16, 16);
             }
-            else if (lastButtonPressed == "up ") {
+            else if (lastButtonPressed == "up") {
                ctx.drawImage(link1,62, 60, 16, 16, linkX, linkY, 16, 16);
             }
             else if (lastButtonPressed == "left") {
@@ -226,14 +226,14 @@ function drawLink(){
             if (lastButtonPressed == "down") {
                ctx.drawImage(link1, 0, 84, 16, 27, linkX, linkY, 16, 27);
             }
-            else if (lastButtonPressed == "up ") {
-               ctx.drawImage(link1,62, 84, 16, 26, linkX, linkY - 14, 16, 26);
+            else if (lastButtonPressed == "up") {
+               ctx.drawImage(link1, 62, 84, 16, 26, linkX, linkY - 14, 16, 26);
             }
             else if (lastButtonPressed == "left") {
-               ctx.drawImage(link1, 22, 84, 26, 27, linkX - 10, linkY - 1, 27, 27);
+               ctx.drawImage(link1, 22, 84, 26, 27, linkX - 12, linkY - 6, 27, 27);
             }
             else if (lastButtonPressed == "right") {
-               ctx.drawImage(link1, 84, 84, 26, 26, linkX, linkY - 8, 26, 26);
+               ctx.drawImage(link1, 84, 84, 30, 26, linkX, linkY - 6, 30, 26);
             }
          }
          if(animationCounter >= 6) {
