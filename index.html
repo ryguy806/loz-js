@@ -225,15 +225,19 @@ function drawLink(){
          else if(currentAnimation == 1) {
             if (lastButtonPressed == "down") {
                ctx.drawImage(link1, 0, 84, 16, 27, linkX, linkY, 16, 27);
+               gameObjectCollision(linkX + 7, linkY + 16, gameObjects, false, true);
             }
             else if (lastButtonPressed == "up") {
                ctx.drawImage(link1, 62, 84, 16, 26, linkX, linkY - 14, 16, 26);
+               gameObjectCollision(linkX + 3, linkY - 14, gameObjects, false, true);
             }
             else if (lastButtonPressed == "left") {
                ctx.drawImage(link1, 22, 84, 26, 27, linkX - 12, linkY - 6, 27, 27);
+               gameObjectCollision(linkX - 8, linkY + 5, gameObjects, false, true);
             }
             else if (lastButtonPressed == "right") {
                ctx.drawImage(link1, 84, 84, 30, 26, linkX, linkY - 6, 30, 26);
+               gameObjectCollision(linkX + 14, linkY + 5, gameObjects, false, true);
             }
          }
          if(animationCounter >= 6) {
@@ -488,7 +492,7 @@ function collision(x, y, map){
 	return false;	
 }
 
-function gameObjectCollision(x, y, objects, isLink){
+function gameObjectCollision(x, y, objects, isLink, isSword){
 	if(isLink){
 		for(let i = 0; i < objects.length; i++){
          if (x <= objects[i].x + objects[i].width &&
@@ -578,6 +582,30 @@ function gameObjectCollision(x, y, objects, isLink){
          }
       }
 	}
+   else {
+      let swordW = 11;
+      let swordH = 3;
+      if(lastButtonPressed == "up" || lastButtonPressed == "down") {
+         swordW = 3;
+         swordH = 11;
+      }
+      for(let i  = 0; i < objects.length; i++) {
+         if (x <= objects[i].x + objects[i].width &&
+         x + swordW >= objects[i].x &&
+         y  <= objects[i].y + objects[i].height &&
+         y + swordH >= objects[i].y ) {
+            if(objects[i].isEnemy) {
+               objects[i].health -= 1;
+               if(objects[i].health <= 0) {
+                  playSound("./sounds/Enemy_Die.wav");
+               }
+               else {
+                  playSound("./sounds/Enemy_Hit .wav");
+               }
+            }
+         }
+      }
+   }
 }
 
 function drawGameObjects(){
