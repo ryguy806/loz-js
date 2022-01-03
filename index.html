@@ -492,6 +492,51 @@ function collision(x, y, map){
 	return false;	
 }
 
+function getBounceLocation(gameObject, ignoresObjects, direction) {
+   let currentRow = Math.floor(gameObject.y / 16);
+   let currentCol = Math.floor(gameObject.x / 16);
+   if (direction == "up") {
+      if (gameMap[currentRow - 1][currentCol] == 2) {
+         gameObject.bounceY = gameObject.y - 16;
+         gameObject.bounceX = gameObject.x;
+      }
+      else {
+         gameObject.bounceY = gameObject.y;
+         gameObject.bounceX = gameObject.x;
+      }
+   }
+   if (direction == "down") {
+      if (gameMap[currentRow + 1][currentCol] == 2) {
+         gameObject.bounceY = gameObject.y + 16;
+         gameObject.bounceX = gameObject.x;
+      }
+      else {
+         gameObject.bounceY = gameObject.y;
+         gameObject.bounceX = gameObject.x;
+      }
+   }
+   if (direction == "left") {
+      if (gameMap[currentRow][currentCol - 1] == 2) {
+         gameObject.bounceY = gameObject.y;
+         gameObject.bounceX = gameObject.x - 16;
+      }
+      else {
+         gameObject.bounceY = gameObject.y;
+         gameObject.bounceX = gameObject.x;
+      }
+   }
+   if (direction == "down") {
+      if (gameMap[currentRow][currentCol + 1] == 2) {
+         gameObject.bounceY = gameObject.y;
+         gameObject.bounceX = gameObject.x + 16;
+      }
+      else {
+         gameObject.bounceY = gameObject.y;
+         gameObject.bounceX = gameObject.x;
+      }
+   }
+}
+
 function gameObjectCollision(x, y, objects, isLink, isSword){
 	if(isLink){
 		for(let i = 0; i < objects.length; i++){
@@ -590,17 +635,75 @@ function gameObjectCollision(x, y, objects, isLink, isSword){
          swordH = 11;
       }
       for(let i  = 0; i < objects.length; i++) {
-         if (x <= objects[i].x + objects[i].width &&
-         x + swordW >= objects[i].x &&
-         y  <= objects[i].y + objects[i].height &&
-         y + swordH >= objects[i].y ) {
-            if(objects[i].isEnemy) {
-               objects[i].health -= 1;
-               if(objects[i].health <= 0) {
-                  playSound("./sounds/Enemy_Die.wav");
+         if (lastButtonPressed == "left") {
+            if (x <= objects[i].x + objects[i].width &&
+            x + swordW >= objects[i].x &&
+            y  <= objects[i].y + objects[i].height &&
+            y + swordH >= objects[i].y ) {
+               if(objects[i].isEnemy) {
+                  objects[i].needsBounce;
+                  getBounceLocation(object[i], false, direction)
+                  objects[i].health -= 1;
+                  if(objects[i].health <= 0) {
+                     playSound("./sounds/Enemy_Die.wav");
+                  }
+                  else {
+                     playSound("./sounds/Enemy_Hit .wav");
+                  }
                }
-               else {
-                  playSound("./sounds/Enemy_Hit .wav");
+            }
+         }
+         else if (lastButtonPressed == "right") {
+            if (x <= objects[i].x + objects[i].width &&
+            x + swordW >= objects[i].x &&
+            y  <= objects[i].y + objects[i].height &&
+            y + swordH >= objects[i].y ) {
+               if(objects[i].isEnemy) {
+                  objects[i].needsBounce;
+                  getBounceLocation(object[i], false, direction)
+                  objects[i].health -= 1;
+                  if(objects[i].health <= 0) {
+                     playSound("./sounds/Enemy_Die.wav");
+                  }
+                  else {
+                     playSound("./sounds/Enemy_Hit .wav");
+                  }
+               }
+            }
+         }
+         else if (lastButtonPressed == "up") {
+            if (x <= objects[i].x + objects[i].width &&
+            x + swordW >= objects[i].x &&
+            y  <= objects[i].y + objects[i].height &&
+            y + swordH >= objects[i].y ) {
+               if(objects[i].isEnemy) {
+                  objects[i].needsBounce;
+                  getBounceLocation(object[i], false, direction)
+                  objects[i].health -= 1;
+                  if(objects[i].health <= 0) {
+                     playSound("./sounds/Enemy_Die.wav");
+                  }
+                  else {
+                     playSound("./sounds/Enemy_Hit .wav");
+                  }
+               }
+            }
+         }
+         else {
+            if (x <= objects[i].x + objects[i].width &&
+            x + swordW >= objects[i].x &&
+            y  <= objects[i].y + objects[i].height &&
+            y + swordH >= objects[i].y ) {
+               if(objects[i].isEnemy) {
+                  objects[i].needsBounce;
+                  getBounceLocation(object[i], false, direction)
+                  objects[i].health -= 1;
+                  if(objects[i].health <= 0) {
+                     playSound("./sounds/Enemy_Die.wav");
+                  }
+                  else {
+                     playSound("./sounds/Enemy_Hit .wav");
+                  }
                }
             }
          }
