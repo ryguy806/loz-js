@@ -525,7 +525,7 @@ function getBounceLocation(gameObject, ignoresObjects, direction) {
          gameObject.bounceX = gameObject.x;
       }
    }
-   if (direction == "down") {
+   if (direction == "right") {
       if (gameMap[currentRow][currentCol + 1] == 2) {
          gameObject.bounceY = gameObject.y;
          gameObject.bounceX = gameObject.x + 16;
