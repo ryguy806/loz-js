@@ -225,19 +225,19 @@ function drawLink(){
          else if(currentAnimation == 1) {
             if (lastButtonPressed == "down") {
                ctx.drawImage(link1, 0, 84, 16, 27, linkX, linkY, 16, 27);
-               gameObjectCollision(linkX + 7, linkY + 16, gameObjects, false, true);
+               gameObjectCollision(linkX + 7, linkY + 16, gameObjects, false, true, "down");
             }
             else if (lastButtonPressed == "up") {
                ctx.drawImage(link1, 62, 84, 16, 26, linkX, linkY - 14, 16, 26);
-               gameObjectCollision(linkX + 3, linkY - 14, gameObjects, false, true);
+               gameObjectCollision(linkX + 3, linkY - 14, gameObjects, false, true, "up");
             }
             else if (lastButtonPressed == "left") {
                ctx.drawImage(link1, 22, 84, 26, 27, linkX - 12, linkY - 6, 27, 27);
-               gameObjectCollision(linkX - 8, linkY + 5, gameObjects, false, true);
+               gameObjectCollision(linkX - 8, linkY + 5, gameObjects, false, true, "left");
             }
             else if (lastButtonPressed == "right") {
                ctx.drawImage(link1, 84, 84, 30, 26, linkX, linkY - 6, 30, 26);
-               gameObjectCollision(linkX + 14, linkY + 5, gameObjects, false, true);
+               gameObjectCollision(linkX + 14, linkY + 5, gameObjects, false, true, "right");
             }
          }
          if(animationCounter >= 6) {
@@ -537,7 +537,7 @@ function getBounceLocation(gameObject, ignoresObjects, direction) {
    }
 }
 
-function gameObjectCollision(x, y, objects, isLink, isSword){
+function gameObjectCollision(x, y, objects, isLink, isSword, direction){
 	if(isLink){
 		for(let i = 0; i < objects.length; i++){
          if (x <= objects[i].x + objects[i].width &&
@@ -641,8 +641,8 @@ function gameObjectCollision(x, y, objects, isLink, isSword){
             y  <= objects[i].y + objects[i].height &&
             y + swordH >= objects[i].y ) {
                if(objects[i].isEnemy) {
-                  objects[i].needsBounce;
-                  getBounceLocation(object[i], false, direction)
+                  objects[i].needsBounce = true;
+                  getBounceLocation(objects[i], false, direction)
                   objects[i].health -= 1;
                   if(objects[i].health <= 0) {
                      playSound("./sounds/Enemy_Die.wav");
@@ -659,8 +659,8 @@ function gameObjectCollision(x, y, objects, isLink, isSword){
             y  <= objects[i].y + objects[i].height &&
             y + swordH >= objects[i].y ) {
                if(objects[i].isEnemy) {
-                  objects[i].needsBounce;
-                  getBounceLocation(object[i], false, direction)
+                  objects[i].needsBounce = true;
+                  getBounceLocation(objects[i], false, direction)
                   objects[i].health -= 1;
                   if(objects[i].health <= 0) {
                      playSound("./sounds/Enemy_Die.wav");
@@ -677,8 +677,8 @@ function gameObjectCollision(x, y, objects, isLink, isSword){
             y  <= objects[i].y + objects[i].height &&
             y + swordH >= objects[i].y ) {
                if(objects[i].isEnemy) {
-                  objects[i].needsBounce;
-                  getBounceLocation(object[i], false, direction)
+                  objects[i].needsBounce = true;
+                  getBounceLocation(objects[i], false, direction)
                   objects[i].health -= 1;
                   if(objects[i].health <= 0) {
                      playSound("./sounds/Enemy_Die.wav");
@@ -695,8 +695,8 @@ function gameObjectCollision(x, y, objects, isLink, isSword){
             y  <= objects[i].y + objects[i].height &&
             y + swordH >= objects[i].y ) {
                if(objects[i].isEnemy) {
-                  objects[i].needsBounce;
-                  getBounceLocation(object[i], false, direction)
+                  objects[i].needsBounce = true;
+                  getBounceLocation(objects[i], false, direction)
                   objects[i].health -= 1;
                   if(objects[i].health <= 0) {
                      playSound("./sounds/Enemy_Die.wav");
@@ -866,6 +866,25 @@ function drawGameObjects(){
 						ctx.drawImage(enemies, 90, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
 					}
 				}
+            if (gameObjects[i].needsBounce) {
+               if (gameObjects[i].x != gameObjects[i].bounceX) {
+                  if (gameObjects[i].bounceX > gameObjects[i].x) {
+                     gameObjects[i].x += 4;
+                  }
+                  else {
+                     gameObjects[i].x -= 4;
+                  }
+               }
+               if (gameObjects[i].y != gameObjects[i].bounceY) {
+                  if (gameObjects[i].bounceY > gameObjects[i].y) {
+                     gameObjects[i].y += 4;
+                  }
+                  else {
+                     gameObjects[i].y -= 4;
+                  }
+               }
+               gameObjects[i].needsBounce = false;
+            }
          }
       }
    }
@@ -960,7 +979,7 @@ function draw () {
    ///all code goes here
    drawMap(gameMap);
    drawLink();
-   gameObjectCollision(linkX, linkY, gameObjects, true);
+   gameObjectCollision(linkX, linkY, gameObjects, true, lastButtonPressed);
    drawGameObjects();
    drawHUD();
    },1000/fps);
