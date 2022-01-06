@@ -550,7 +550,12 @@ function gameObjectCollision(x, y, objects, isLink, isSword, direction){
                   linkX = objects[i].newLinkX;
                   linkY = objects[i].newLinkY;
                }
-               if(objects[i].isPickUpItem){
+               else if(objects[i].isRupee) {
+                  rupeeAmount += objects[i].rupeeValue;
+                  objects.splice(i, 1);
+                  playSound('./sounds/Get_Rupee.wav');
+               }
+               else if(objects[i].isPickUpItem){
                   playPickUpItemAnimation = true
                   ///There are a number of pick up items. The first 8 are selectable within
                   /// the inventory screen. The following 6 sit on top of the selectable inventory
