@@ -883,8 +883,51 @@ function drawGameObjects(){
                      gameObjects[i].y -= 4;
                   }
                }
-               gameObjects[i].needsBounce = false;
+               else {
+                  gameObjects[i].needsBounce = false;
+                  if (gameObjects[i].health <= 0) {
+                     let rupeeChance = Math.floor(Math.random() * 10);
+                     if (rupeeChance < 10) {
+                        let rupeeObject = new GameObject();
+                        rupeeObject.x = gameObjects[i].x + 4;
+                        rupeeObject.y = gameObjects[i].y;
+                        rupeeObject.width = 8;
+                        rupeeObject.height = 16;
+                        rupeeObject.isRupee = true;
+                        let rupeeValueChance = Math.floor(Math.random() * 10);
+                        if (rupeeValueChance > 2) {
+                           rupeeObject.rupeeValue = 5
+                        }
+                        else {
+                           rupeeObject.rupeeValue = 1;
+                        }
+                        gameObjects.push(rupeeObject);
+                     }
+                     gameObjects.splice(i, 1);
+                  }
+               }
+               
             }
+         }
+      }
+      if(gameObjects[i].isRupee) {
+         if(gameObjects[i].rupeeValue == 1) {
+            gameObjects[i].counter++;
+            if(gameObjects[i].counter % 5 == 0) {
+               gameObjects[i].rupeeImage += 1;
+            }
+            if(gameObjects[i].rupeeImage > 1) {
+               gameObjects[i].rupeeImage = 0;
+            }
+            if(gameObjects[i].rupeeImage == 0) {
+               ctx.drawImage(link1, 244, 225, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16);
+            }
+            else {
+               ctx.drawImage(link1, 274, 225, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16);
+            }
+         }
+         else {
+            ctx.drawImage(link1, 274, 225, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16);
          }
       }
    }
